@@ -14,7 +14,7 @@
     "dist/"
   ],
   "scripts": {
-    "build": "fireenjin env local && stencil build",
+    "build": "fireenjin copy ./service-account.json \"./node_modules/@floodteam/backend/service-account.json\" && stencil build",
     "dev": " stencil build --docs --dev --watch --serve",
     "docs": " stencil build --docs",
     "generate": "fireenjin generate component",
