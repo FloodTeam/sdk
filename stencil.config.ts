@@ -11,6 +11,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: "dist",
+      esmLoaderPath: "../loader",
     },
   ],
   rollupPlugins: {
