@@ -21,13 +21,13 @@ jobs:
         run: npm run build
       # - name: UI Test
       #   run: npm run chromatic
-      - name: Release
+      - name: Release to Github Registry
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
       - run: echo -e "@floodteam:registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-      - name: Release Github Registry
+      - name: Release to NPM Registry
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
