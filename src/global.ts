@@ -1,8 +1,7 @@
 import "@floodteam/components";
 import { getSdk } from "@floodteam/backend/dist/sdk";
 
-export default () => {
-  // On Load
+if (window && !(window as any).FloodTeam) {
   (window as any).FloodTeam = {
     init: async (
       options: {
@@ -26,4 +25,4 @@ export default () => {
       return await (window as any).FireEnjin.init(getSdk, libConfig);
     },
   };
-};
+}
