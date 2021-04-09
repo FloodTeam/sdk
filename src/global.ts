@@ -1,5 +1,5 @@
 import "@floodteam/components";
-import { getSdk } from "@floodteam/backend/dist";
+import { getSdk } from "@floodteam/backend/dist/sdk";
 
 export default () => {
   // On Load

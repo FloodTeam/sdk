@@ -1,6 +1,6 @@
 import { Config } from "@stencil/core";
 import nodePolyfills from "rollup-plugin-node-polyfills";
-//import typescript from "rollup-plugin-typescript";
+import typescript from "rollup-plugin-typescript";
 
 import { namespace } from "./package.json";
 
@@ -14,7 +14,7 @@ export const config: Config = {
     },
   ],
   rollupPlugins: {
-    //    before: [typescript()],
+    before: [typescript()],
     after: [nodePolyfills()],
   },
 };
