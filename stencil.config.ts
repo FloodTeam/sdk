@@ -15,7 +15,11 @@ export const config: Config = {
     },
     {
       type: "www",
-      serviceWorker: null,
+      baseUrl: "https://ftms-legacy.web.app",
+      serviceWorker: {
+        swSrc: "src/sw.js",
+        globPatterns: ["**/*.{js,css,json,html,ico,png}"],
+      },
     },
   ],
   rollupPlugins: {

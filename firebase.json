@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "public": "www",
+    "headers": [
+      {
+        "source": "/build/p-*",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=31556952, s-maxage=31556952, immutable"
+          }
+        ]
+      }
+    ],
+    "site": "ftms-legacy",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}

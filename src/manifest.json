@@ -1,0 +1,24 @@
+{
+  "name": "Flood Team",
+  "short_name": "Flood Team",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "assets/icon/icon192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon/icon512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "background_color": "#488aff",
+  "theme_color": "#488aff",
+  "permissions": ["gcm"],
+  "gcm_sender_id": "26422956124",
+  "version": "1.1.0"
+}

@@ -1,1 +1,50 @@
 @import "~@floodteam/components/dist/floodteam/floodteam.css";
+
+/**
+ * CSS Variables
+ * We can use our theme colors in HTML by 
+ * using color="" attribute and in CSS by
+ * using css variables with --ion-color- prefix
+ * 
+ * @see https://ionicframework.com/docs/theming/css-variables
+ */
+
+#banner {
+  background-image: url(/assets/images/banner-truck-dark.png);
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: none;
+  min-height: 50vh;
+  display: block;
+  width: 100%;
+}
+
+#commercial {
+  padding: 30px;
+  background: var(--ion-color-medium);
+}
+
+#book {
+  padding: 30px;
+  background: var(--ion-color-primary);
+}
+
+.waves {
+  color: var(--ion-color-tertiary);
+}
+
+.waves .wave-background {
+  fill: var(--ion-color-primary);
+}
+
+footer {
+  margin-top: -10px;
+  padding: 60px;
+  background: var(--ion-color-tertiary);
+}
+
+footer img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}

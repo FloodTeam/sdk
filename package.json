@@ -15,6 +15,9 @@
   ],
   "scripts": {
     "build": "fireenjin copy ./service-account.json \"./node_modules/@floodteam/backend/service-account.json\" && stencil build",
+    "build:prerender": "fireenjin copy ./service-account.json \"./node_modules/@floodteam/backend/service-account.json\" && stencil build --prerender",
+    "build:ptest": "fireenjin copy ./service-account.json \"./node_modules/@floodteam/backend/service-account.json\" && stencil build --prerender --serve",
+    "deploy": "npm run build:prerender && firebase deploy",
     "dev": " stencil build --docs --dev --watch --serve",
     "docs": " stencil build --docs",
     "generate": "fireenjin generate component",
@@ -34,15 +37,15 @@
     }
   },
   "dependencies": {
-    "@floodteam/backend": "^1.1.126",
-    "@floodteam/components": "^1.0.41",
+    "@floodteam/backend": "^1.1.151",
+    "@floodteam/components": "^1.0.53",
     "@stencil/core": "^2.6.0"
   },
   "devDependencies": {
-    "@madnesslabs/fireenjin": "^1.4.14",
+    "@madnesslabs/fireenjin": "^1.4.23",
     "@stencil/eslint-plugin": "^0.3.1",
-    "@types/chart.js": "^2.9.32",
-    "@types/jest": "^26.0.20",
+    "@types/chart.js": "^2.9.34",
+    "@types/jest": "^26.0.24",
     "eslint-config-airbnb-typescript": "^10.0.2",
     "husky": "^4.3.8",
     "jest": "^26.6.3",
@@ -50,7 +53,8 @@
     "npm-run-all": "^4.1.5",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "rollup-plugin-typescript": "^1.0.1",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.5",
+    "workbox-build": "^4.3.1"
   },
   "jest": {
     "preset": "@stencil/core/testing"

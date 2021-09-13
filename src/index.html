@@ -6,7 +6,7 @@
 
     <meta
       name="viewport"
-      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0"
     />
     <meta name="description" content="A local design system testing tool" />
     <meta name="theme-color" content="#16161d" />
@@ -21,7 +21,12 @@
     <meta http-equiv="x-ua-compatible" content="IE=Edge" />
     <script type="module" src="/build/floodteam.esm.js"></script>
     <script nomodule src="/build/floodteam.js"></script>
-
+    <script
+      src="https://apis.google.com/js/api.js"
+      async
+      defer
+      type="text/javascript"
+    ></script>
     <link href="/build/floodteam.css" rel="stylesheet" />
     <link
       rel="apple-touch-icon"
@@ -29,12 +34,83 @@
       href="/assets/icon/apple-touch-icon.png"
     />
     <link rel="icon" type="image/x-icon" href="/assets/icon/favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Rubik:400,500,700|Work+Sans:400,500,700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="manifest" href="/manifest.json" />
     <style>
       body {
+        background-color: #d7d8da;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      noscript {
+        padding: 15px 15px 15px 40px;
         display: block;
-        overflow: auto;
-        position: initial;
+        width: 80%;
+        max-width: 600px;
+        margin: 30px auto;
+        background-color: #d7d8da;
+        border-radius: 4px;
+        color: #333333;
+        position: relative;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+          0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+      }
+
+      noscript span {
+        font-weight: bold;
+        display: block;
+        height: 20px;
+        width: 20px;
+        border-radius: 100%;
+        background-color: #d7d8da;
+        color: #333333;
+        line-height: 20px;
+        text-align: center;
+        position: absolute;
+        top: 13px;
+        left: 12px;
+      }
+
+      .is-loading {
+        position: relative;
+        pointer-events: none;
+      }
+      .is-loading:before {
+        transition: all 400ms ease;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.6);
+        z-index: 99;
+      }
+      .is-loading:after {
+        display: block;
+        position: absolute;
+        height: 200px;
+        width: 200px;
+        content: url(data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBzdHlsZT0ibWFyZ2luOiBhdXRvOyBiYWNrZ3JvdW5kOiByZ2JhKDI1NSwgMjU1LCAyNTUsIDApOyBkaXNwbGF5OiBibG9jazsiIHdpZHRoPSIyMDBweCIgaGVpZ2h0PSIyMDBweCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIj4KPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjM2VhN2RlIiBzdHJva2Utd2lkdGg9IjIiPgogIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjIuMTI3NjU5NTc0NDY4MDg1cyIgdmFsdWVzPSIwOzQwIiBrZXlUaW1lcz0iMDsxIiBrZXlTcGxpbmVzPSIwIDAuMiAwLjggMSIgY2FsY01vZGU9InNwbGluZSIgYmVnaW49IjBzIj48L2FuaW1hdGU+CiAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0ib3BhY2l0eSIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiIGR1cj0iMi4xMjc2NTk1NzQ0NjgwODVzIiB2YWx1ZXM9IjE7MCIga2V5VGltZXM9IjA7MSIga2V5U3BsaW5lcz0iMC4yIDAgMC44IDEiIGNhbGNNb2RlPSJzcGxpbmUiIGJlZ2luPSIwcyI+PC9hbmltYXRlPgo8L2NpcmNsZT48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIwIiBmaWxsPSJub25lIiBzdHJva2U9IiMzMzg4YmIiIHN0cm9rZS13aWR0aD0iMiI+CiAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiIGR1cj0iMi4xMjc2NTk1NzQ0NjgwODVzIiB2YWx1ZXM9IjA7NDAiIGtleVRpbWVzPSIwOzEiIGtleVNwbGluZXM9IjAgMC4yIDAuOCAxIiBjYWxjTW9kZT0ic3BsaW5lIiBiZWdpbj0iLTEuMDYzODI5Nzg3MjM0MDQyNXMiPjwvYW5pbWF0ZT4KICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJvcGFjaXR5IiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIgZHVyPSIyLjEyNzY1OTU3NDQ2ODA4NXMiIHZhbHVlcz0iMTswIiBrZXlUaW1lcz0iMDsxIiBrZXlTcGxpbmVzPSIwLjIgMCAwLjggMSIgY2FsY01vZGU9InNwbGluZSIgYmVnaW49Ii0xLjA2MzgyOTc4NzIzNDA0MjVzIj48L2FuaW1hdGU+CjwvY2lyY2xlPgo8L3N2Zz4=);
+        top: 50%;
+        left: 50%;
+        margin-left: -100px;
+        margin-top: -100px;
+        z-index: 100;
+        pointer-events: none;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #1e2023;
+        }
+        noscript,
+        noscript span {
+          color: #fff;
+        }
       }
     </style>
   </head>
@@ -45,14 +121,153 @@
       token="test"
       functions-host="http://localhost:5001/ftms-ca85b/us-central1"
     ></floodteam-init>
-    <ion-card>
-      <fireenjin-form endpoint="addJob" submit-button-color="success">
-        <floodteam-input
-          placeholder="Customer Name"
-          label="Customer Name"
-        ></floodteam-input>
-        <ion-button type="submit" color="success">Submit</ion-button>
-      </fireenjin-form>
-    </ion-card>
+    <ion-app>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+            <img alt="Flood Team Logo" height="80" width="219" class="ion-padding" src="/assets/images/logo-dark.png">
+          </ion-buttons>
+          <ion-title>My Navigation Bar</ion-title>
+          <noscript slot="end">
+            This app is best viewed with JavaScript enabled!
+          </noscript>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <!-- 
+         * Grid System
+         * Grid system is Flexbox based and easy to use, 
+         * much like BS you have helper classes too.
+         * 
+         * @see https://ionicframework.com/docs/layout/grid
+        -->
+        <ion-grid id="banner" class="ion-padding">
+          <ion-row>
+            <ion-col>
+              <ion-card>
+                <ion-item>
+                  <ion-icon slot="start" name="home"></ion-icon>
+                  <ion-card-header>
+                    <ion-card-title>Residential</ion-card-title>
+                  </ion-card-header>
+                </ion-item>
+                <ion-card-content>
+                  We really are your best bet when things get wet.
+                  <div class="ion-padding">
+                    <ion-button href="#book">Book Now</ion-button>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col>
+              <ion-card>
+                <ion-item>
+                  <ion-icon slot="start" name="home"></ion-icon>
+                  <ion-card-header>
+                    <ion-card-title>Commercial</ion-card-title>
+                  </ion-card-header>
+                </ion-item>
+                <ion-card-content>
+                  We really are your best bet when things get wet.
+                  <div class="ion-padding">
+                    <ion-button href="#commercial" color="secondary">Read More</ion-button>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col>
+              <ion-card>
+                <ion-item>
+                  <ion-icon slot="start" name="home"></ion-icon>
+                  <ion-card-header>
+                    <ion-card-title>Join the Team</ion-card-title>
+                  </ion-card-header>
+                </ion-item>
+                <ion-card-content>
+                  We really are your best bet when things get wet.
+                  <div class="ion-padding">
+                    <ion-button href="#" color="tertiary">Join Us</ion-button>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    
+        <div id="commercial">
+          <h1 class="ion-padding"><ion-text color="secondary">Commercial<ion-text></h1>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+              <ion-card-title>Card Title</ion-card-title>
+            </ion-card-header>
+    
+            <ion-card-content>
+              Keep close to Nature's heart... and break clear away, once in awhile,
+              and climb a mountain or spend a week in the woods. Wash your spirit clean.
+            </ion-card-content>
+          </ion-card>
+    
+          <ion-card>
+            <ion-item>
+              <ion-icon name="pin" slot="start"></ion-icon>
+              <ion-label>ion-item in a card, icon left, button right</ion-label>
+              <ion-button fill="outline" slot="end">View</ion-button>
+            </ion-item>
+    
+            <ion-card-content>
+              This is content, without any paragraph or header tags,
+              within an ion-card-content element.
+            </ion-card-content>
+          </ion-card>
+    
+          <ion-card>
+            <ion-item href="#" class="ion-activated">
+              <ion-icon name="wifi" slot="start"></ion-icon>
+              <ion-label>Card Link Item 1 activated</ion-label>
+            </ion-item>
+    
+            <ion-item href="#">
+              <ion-icon name="wine" slot="start"></ion-icon>
+              <ion-label>Card Link Item 2</ion-label>
+            </ion-item>
+    
+            <ion-item class="ion-activated">
+              <ion-icon name="warning" slot="start"></ion-icon>
+              <ion-label>Card Button Item 1 activated</ion-label>
+            </ion-item>
+    
+            <ion-item>
+              <ion-icon name="walk" slot="start"></ion-icon>
+              <ion-label>Card Button Item 2</ion-label>
+            </ion-item>
+          </ion-card>
+        </div>
+        
+        <!-- Oh, look there is' one of our components!!! ^,^ -->
+        <div id="book">
+          <h1 class="ion-padding">
+            <ion-text color="light">Book Now</ion-text>
+          </h1>
+          <floodteam-book-now referring="true"></floodteam-book-now>
+        </div>
+        
+        <!--
+          * This is for nice ^_^
+          * @see https://getwaves.io/ 
+        -->
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <rect height="100%" width="100%" class="wave-background"></rect>
+          <path fill="currentColor" fill-opacity="1" d="M0,128L16,154.7C32,181,64,235,96,261.3C128,288,160,288,192,266.7C224,245,256,203,288,192C320,181,352,203,384,197.3C416,192,448,160,480,144C512,128,544,128,576,138.7C608,149,640,171,672,197.3C704,224,736,256,768,250.7C800,245,832,203,864,202.7C896,203,928,245,960,261.3C992,277,1024,267,1056,250.7C1088,235,1120,213,1152,192C1184,171,1216,149,1248,138.7C1280,128,1312,128,1344,138.7C1376,149,1408,171,1424,181.3L1440,192L1440,320L1424,320C1408,320,1376,320,1344,320C1312,320,1280,320,1248,320C1216,320,1184,320,1152,320C1120,320,1088,320,1056,320C1024,320,992,320,960,320C928,320,896,320,864,320C832,320,800,320,768,320C736,320,704,320,672,320C640,320,608,320,576,320C544,320,512,320,480,320C448,320,416,320,384,320C352,320,320,320,288,320C256,320,224,320,192,320C160,320,128,320,96,320C64,320,32,320,16,320L0,320Z"></path>
+        </svg>
+        
+        <!-- I faked this part, ain't nobody got time fo dat! -->
+        <footer>
+          <img alt="Flood Team Footer" height="378" width="990" src="/assets/images/fake-footer.png" />
+        </footer>
+    
+      </ion-content>
+    </ion-app>
   </body>
 </html>
