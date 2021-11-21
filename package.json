@@ -34,23 +34,23 @@
     }
   },
   "dependencies": {
-    "@floodteam/backend": "^1.1.126",
-    "@floodteam/components": "^1.0.41",
-    "@stencil/core": "^2.6.0"
+    "@floodteam/backend": "^1.1.262",
+    "@floodteam/components": "^1.0.137",
+    "@stencil/core": "^2.10.0"
   },
   "devDependencies": {
-    "@madnesslabs/fireenjin": "^1.4.14",
-    "@stencil/eslint-plugin": "^0.3.1",
-    "@types/chart.js": "^2.9.32",
-    "@types/jest": "^26.0.20",
-    "eslint-config-airbnb-typescript": "^10.0.2",
-    "husky": "^4.3.8",
-    "jest": "^26.6.3",
-    "jest-cli": "^26.6.3",
+    "@fireenjin/cli": "^1.0.3",
+    "@stencil/eslint-plugin": "^0.4.0",
+    "@types/chart.js": "^2.9.34",
+    "@types/jest": "^27.0.3",
+    "eslint-config-airbnb-typescript": "^16.0.0",
+    "husky": "^7.0.4",
+    "jest": "^27.3.1",
+    "jest-cli": "^27.3.1",
     "npm-run-all": "^4.1.5",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "rollup-plugin-typescript": "^1.0.1",
-    "typescript": "^4.3.4"
+    "typescript": "^4.5.2"
   },
   "jest": {
     "preset": "@stencil/core/testing"
